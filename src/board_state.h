@@ -2,20 +2,24 @@
 #define BOARDSTATE_H
 
 #include <optional>
+#include <set>
 #include <sstream>
 #include <vector>
-#include <word_validator.h>
 
+#include <word_validator.h>
 
 class BoardState {
 public:
-    typedef std::optional<char> board_letter;
+    typedef std::optional<char> BoardLetter;
     static bool is_valid_letter(char letter);
 
     typedef struct BoardMove {
         size_t row;
         size_t col;
         char letter;
+        bool operator<(struct BoardMove other) const {
+            return (row == other.row) ? (col < other.col) : (row < other.row);
+        }
     } BoardMove;
 
     BoardState(size_t rows, size_t cols);
@@ -28,19 +32,22 @@ public:
     void commit();
     void revert();
 
-    board_letter get_maybe_letter(int row, int col) const;
+    BoardLetter get_maybe_letter(int row, int col) const;
 
 private:
-    bool adjacent_horizontal(size_t row, size_t col);
-    bool adjacent_vertical(size_t row, size_t col);
-    bool check_horizontal_word(size_t row, size_t col);
-    bool check_vertical_word(size_t row, size_t col);
-    bool first_word;
-    size_t num_rows;
-    size_t num_cols;
-    std::vector<std::vector<board_letter> > board_cells;
-    std::vector<BoardMove> moves_since_last_commit;
-    WordValidator dictionary;
+    bool has_prev_vert_neighbor(size_t row, size_t col);
+    bool has_prev_horiz_neighbor(size_t row, size_t col);
+
+    bool find_horizontal_word(std::string &maybe_word, size_t row, size_t col);
+    bool find_vertical_word(std::string &maybe_word, size_t row, size_t col);
+
+    bool first_word_;
+    size_t num_rows_;
+    size_t num_cols_;
+    std::vector<std::vector<BoardLetter> > board_cells_;
+    std::vector<BoardMove> moves_since_last_commit_;
+    std::set<BoardMove> moves_before_last_commit_;
+    WordValidator dictionary_;
 };
 
 #endif // BOARDSTATE_H

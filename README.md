@@ -14,7 +14,7 @@ have been found and are being fixed.
 
 - Boost
 
-- (GNU Aspell)[http://aspell.net/]
+- [GNU Aspell](http://aspell.net/)
 
 ### Building and running
 

@@ -177,6 +177,7 @@ public:
                     std::stringstream bad_move_stream;
                     if (board.check_moves(bad_move_stream)) {
                         // If true then the move is good.
+                        board.commit();
                         ++move_count;
                         std::cout << "Move successful; " << move_count
                             << " " << ((move_count == 1) ? "move" : "moves")
@@ -216,7 +217,7 @@ public:
                             } else {
                                 std::cout << "|";
                             }
-                            const BoardState::board_letter maybe_letter =
+                            const BoardState::BoardLetter maybe_letter =
                                 board.get_maybe_letter((size_t)r, (size_t)c);
                             std::cout << maybe_letter.value_or(' ');
                         }

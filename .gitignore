@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# This project's executable binary name
+pseudoscrabble
