@@ -1,5 +1,6 @@
 TOP_DIR = .
 SRC_DIR = $(TOP_DIR)/src
+TEST_MODULE = $(TOP_DIR)/test/testps
 
 CXX = g++ -std=c++17 -g -Wall -Wextra -Wno-unused-but-set-variable
 
@@ -20,6 +21,12 @@ clean:
 	rm -f $(SRC_DIR)/*.o
 	rm -f $(LIB_OUT)
 	rm -f $(BIN_OUT)
+	rm -rf $(TEST_MODULE)/__pycache__/
+	rm -rf $(TEST_MODULE)/helpers/__pycache__/
+
+.PHONY: test
+test:
+	python $(TEST_MODULE) --color
 
 LIB_SRC = \
 		  $(SRC_DIR)/board_state.cpp \
@@ -28,7 +35,7 @@ LIB_OBJ = $(LIB_SRC:.cpp=.o)
 $(LIB_OBJ): BUILD_FLAGS := -I $(SRC_DIR)
 
 $(LIB_OUT): $(LIB_OBJ)
-	rm -rf $@
+	rm -f $@
 	ar cq $@ $(LIB_OBJ)
 
 BIN_SRC = $(SRC_DIR)/main.cpp

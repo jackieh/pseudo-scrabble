@@ -1,0 +1,33 @@
+Welcome to Pseudo-Scrabble.
+Type "help" for instructions.
+>>> 
+Play Pseudo-Scrabble by repeatedly making moves. To make a move, place any
+number of letters on the blank spaces of this board, then submit the move. If
+the move is valid, then the move will be saved to the board and a score counter
+will increment. If the move is not valid, then the move is not saved and the
+player has the option to revert the board to the previous successful move.
+
+To place a letter on the board, run the "place" command specifying a single
+letter, and a valid row number and column number indicating the location of
+placement. Rows and columns are one-indexed (e.g. the first row is row 1,
+and row 0 does not exist).
+
+A valid move meets the following criteria:
+- Letters must be played in a straight line, up-down or left-right.
+- The first word can be played anywhere on the board.
+- All subsequent words must share at least one space with an existing word.
+- Word direction can be left-to-right or top-to-bottom.
+- All sets of adjacent letters must form valid words.
+
+Description of commands
+"help":  Print these instructions for use.
+"quit":  Exit Pseudo-Scrabble.
+"clear": Clear the board.
+"place [L] [R] [C]": Place a [L]etter at the specified [R]ow and [C]olumn.
+"submit": Evaluate letters placed on the board.
+"revert": Revert the board state to the most recent successful move.
+"print":  Print the current board state and the number of moves made so far.
+
+>>> 
+Goodbye
+
